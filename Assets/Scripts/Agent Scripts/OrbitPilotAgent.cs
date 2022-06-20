@@ -82,16 +82,15 @@ public class OrbitPilotAgent : Agent
             }else{
                 AddReward(-baseReward * 2f);
             }
-            AddReward(-rocket.getEngineThrust() * baseReward * (rocket.getAltitude()* 2f/orbitAltitude));
+            AddReward(-rocket.getEngineThrust() * baseReward * (rocket.getAltitude() * 2f/orbitAltitude));
             if (Vector3.Dot(rocket.getRocketSpeed().normalized, getTargetTangentVelocity(orbitAltitude).normalized) < 0) {
                 AddReward(-baseReward);
             }
         }
         previousDistance = currentDistance;
-
         Debug.DrawRay(rocket.transform.position, rocket.getRocketSpeed(), Color.green, 0f);
         Debug.DrawRay(rocket.transform.position, this.getTargetTangentVelocity(orbitAltitude), Color.magenta, 0f);
-        Debug.DrawRay(rocket.transform.position, rocket.getEngineForce(), Color.blue, 0f);
+        Debug.DrawRay(rocket.transform.position, rocket.getRocketForce() - rocket.getEngineForce() , Color.blue, 0f);
 
     }
 
